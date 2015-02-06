@@ -15,3 +15,5 @@ https://github.com/mikeizbicki/ucr-cs100/blob/2015winter/textbook/cheatsheets/gi
 https://github.com/mikeizbicki/ucr-cs100/tree/2015winter/textbook/tools/git/advanced-git
 
 Otherwise, you are free to continue...
+
+** Some of the programs aren't compiling, so please try to find the issues. **
