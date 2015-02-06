@@ -10,7 +10,7 @@ int get_opcode(char *ch) {
 	int opcode;
 	
 	while(!feof(f)) {
-		fscanf(f, "%s\t%x", mnemonic, &opcode);
+		fscanf(f, "%s%x", mnemonic, &opcode);
 		if(feof(f)) break;
 		if(strcmp(mnemonic, ch) == 0) {
 			fclose(f);
