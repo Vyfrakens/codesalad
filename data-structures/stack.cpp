@@ -37,8 +37,7 @@ public:
 		cout<<endl;
 	}
 };
-int main()
-{
+int main() {
 	Stack<int> s;
 	int ch, item;
 	cout<<"STACK"<<endl;

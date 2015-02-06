@@ -7,8 +7,7 @@ struct bintree {
 } *root;
 typedef struct bintree bintree;
 bintree *create_bintree(bintree*, int);
-int main (int argc, char const *argv[])
-{
+int main (int argc, char const *argv[]) {
 	int x;
 	printf("Enter root node: ");
 	scanf("%d", &x);

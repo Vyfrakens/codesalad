@@ -29,8 +29,7 @@ void iterativePostorder(tree*);
 void insert(tree**, int);
 void delete(tree**, int);
 
-int main (int argc, char const *argv[])
-{
+int main (int argc, char const *argv[]) {
 	tree *t;// = create_tree(t);
 	create_bst(&t);
 	traverse(t);

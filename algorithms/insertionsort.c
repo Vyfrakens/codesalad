@@ -1,6 +1,5 @@
 #include "stdio.h"
-int main (int argc, char const *argv[])
-{
+int main (int argc, char const *argv[]) {
     int n, a[10], i, j, t;
     printf("Enter no. of elements: ");
     scanf("%d", &n);
