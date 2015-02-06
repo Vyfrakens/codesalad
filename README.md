@@ -1,10 +1,11 @@
 # codesalad
 
-1. Clone this repo by doing `git clone https://github.com/Vyfrakens/codesalad`
-
-2. Make changes and commit `git add .` and `git commit -m "Meaningful message."`
-
-3. Push by `git push`
+	1. Fork this repo
+	2. Clone it to your computer
+	3. Make an edit or create a new post
+	4. Commit
+	5. Push
+	6. Create a pull request
 
 **Don't know a lot about git??**
 
@@ -14,6 +15,6 @@ https://github.com/mikeizbicki/ucr-cs100/blob/2015winter/textbook/cheatsheets/gi
 
 https://github.com/mikeizbicki/ucr-cs100/tree/2015winter/textbook/tools/git/advanced-git
 
-Otherwise, you are free to continue...
+**Make sure you look through [this link](https://github.com/Islandora/islandora/wiki/Git-Guidelines-and-Best-Practices) too for best practices**
 
-**Some of the programs aren't compiling, so please try to find the issues.**
+*Some of the programs aren't compiling, so please try to find the issues.*
