@@ -1,15 +1,16 @@
 #include<stdio.h>
-
-typedef struct {
+#include<string.h>
+struct {
 	char symbol[10];
 	int value;
-	linked_list link;
-} symtab; // symtab as a binary file? using fread, fwrite?
+	struct linked_list *link;
+} symtab[100];
+int sym_count = 0;
 
-typedef struct {
+struct linked_list{
 	int loc;
-	linked_list *link;
-} linked_list;
+	struct linked_list *link;
+};
 
 void one_pass() {
 	FILE *f = fopen("copy.asm", "r");
@@ -54,6 +55,28 @@ void one_pass() {
 	}
 
 	fclose(f);
+}
+
+int get_symtab_entry(char *ch) {
+	int i;
+	for(i = 0; i < sym_count; i++) {
+		if(strcmp(symtab[i].symbol, ch) == 0)
+			return symtab[i].value;
+	}
+	return -1;
+}
+
+void add_to_symtab(char *sym, int val) {
+	int entry = get_symtab_entry(sym);
+	if(entry == -1) {
+		strcpy(symtab[sym_count].symbol, sym);
+		symtab[sym_count].value = val;
+		sym_count++;
+	} else if(symtab[entry].value == -1) {
+		symtab[entry].value = val;
+		// traverse and solve ll replacing.
+		symtab[entry].link = NULL;
+	}
 }
 
 int get_opcode(char *ch) {
