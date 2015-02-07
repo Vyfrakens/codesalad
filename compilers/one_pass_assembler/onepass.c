@@ -35,9 +35,14 @@ void one_pass() {
 			// symtab lookup
 				// insert fresh, or
 				// insert and traverse linked list
+			//optab lookup
+				// if not found in optab,
+					//check if byte word resw resb
+					//else print error and exit program
+				// if found, move onto operand
 		} else {
 			// optab lookup
-				// if not found in optab, run away
+				// if not found in optab, error exit program
 				// if found, move onto operand
 				if(strcmp(operand, "-") != 0) {
 					// check operand in symtab
@@ -96,7 +101,19 @@ int get_opcode(char *ch) {
 	fclose(f);
 	return -1;
 }
-
+	
+int strtodec(char* str) {
+	//ken its your code 
+	char ch;
+	int res = 0, i, x, len;
+	for(len=0; str[len]!='\0'; ++len);
+	for(i=0; i<len; ++i) {
+		ch = str[i];
+		x = (ch>='0'&&ch<='9')?(ch-'0'):((ch>='A'&&ch<='F')?(ch-'A'+10):(ch-'a'+10));
+		res += x * pow(16, len-i-1);
+	}
+	return res;
+}
 main() {
 	one_pass();
 }
