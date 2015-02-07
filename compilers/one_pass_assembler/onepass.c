@@ -4,7 +4,7 @@ typedef struct {
 	char symbol[10];
 	int value;
 	linked_list link;
-} symtab;
+} symtab; // symtab as a binary file? using fread, fwrite?
 
 typedef struct {
 	int loc;
@@ -32,7 +32,24 @@ void one_pass() {
 			locctr = staddr;
 		} else if(strcmp(label, "-") != 0) {
 			// symtab lookup
-		} else
+				// insert fresh, or
+				// insert and traverse linked list
+		} else {
+			// optab lookup
+				// if not found in optab, run away
+				// if found, move onto operand
+				if(strcmp(operand, "-") != 0) {
+					// check operand in symtab
+						// if symtab has entry with value, substitute here
+						// if entry with no value, add to end of linked list
+						// if no entry, create one with null value and linked list
+				}
+		}
+		
+		
+		// write object code
+		// also check for size exceeding max size of T record
+		
 		printf("lab:%s mnem:%s op:%s\n", label, mnemonic, operand);
 	}
 
