@@ -8,8 +8,8 @@ char *inttobin(int);
 int strequals(char*, char*);
 int main() {
 	char *mask;
-	int start, pstart, plen, rstart, rlen, addr, rec, i, l;
-	FILE *f = fopen("relloader.obj", "r");
+	int start, pstart, plen, rstart, rlen, addr, val, i, l;
+	FILE *f = fopen("relloader.object", "r");
 	if(!f) return -1;
 	printf("Enter the starting address: ");
 	scanf("%x", &start);
@@ -17,7 +17,6 @@ int main() {
 		printf("%s\n", getstr(f));
 		pstart = gethex(f);
 		plen = gethex(f);
-		fgetc(f);
 	}
 	else
 		return -1;
@@ -30,13 +29,16 @@ int main() {
 		while(addr<rstart) printf("%06X\tXX\n", addr++);
 		while(addr<(rstart+rlen)) {
 			l = ftell(f);
-			rec = gethex(f);
+			val = gethex(f) + mask[i++] * (start - pstart);
 			l = ftell(f) - l - 1;
-			printf("%06X\t%06X\n", addr, rec + (mask[i++] * start));
-			addr += l/2;
+			switch(l/2) {
+				case 3: printf("%06X\t%02X\n", addr++, val/0x10000);
+				case 2: printf("%06X\t%02X\n", addr++, (val/0x100)%0x100);
+				case 1: printf("%06X\t%02X\n", addr++, val%0x100);
+			}
 		}
-		fgetc(f);
 	}
+	while (addr<(start+plen)) printf("%06X\tXX\n", addr++);
 	return 0;
 }
 int gethex(FILE *f) {
