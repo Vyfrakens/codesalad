@@ -6,7 +6,7 @@ int strtohex(char*);
 int main() {
 	char ch, str[7];
 	int pstart, plen, rstart, rlen, addr, val;
-	FILE *f = fopen("absloader.obj", "r");
+	FILE *f = fopen("absloader.object", "r");
 	if(!f) return -1;
 	if(fgetc(f)=='H') {
 		printf("%s\n", getstring(f, 6));
@@ -24,7 +24,7 @@ int main() {
 			printf("%06X\t%02X\n", addr++, strtohex(getstring(f, 2)));
 		fgetc(f);
 	}
-	while(addr<(rstart+rlen)) printf("%06X\tXX\n", addr++);
+	while(addr<(pstart+plen)) printf("%06X\tXX\n", addr++);
 	return 0;
 }
 char *getstring(FILE *f, int len) {
