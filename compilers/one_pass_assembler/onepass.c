@@ -15,7 +15,7 @@ struct linked_list{
 
 void one_pass() {
 	FILE *f = fopen("copy.asm", "r");
-	char label[10], mnemonic[10], operand[10];
+	char label[10], mnemonic[10], operand[10], obj[7];
 	int staddr, locctr;
 	while(!feof(f)) {
 		fscanf(f, "%s", label);
@@ -42,7 +42,10 @@ void one_pass() {
 		} else {
 			// optab lookup
 				// if not found in optab, error exit program
-				// if found, move onto operand
+				if(get_opcode(mnemonic) == -1)
+					return 1;
+				// if found, move onto object code
+				strcpy(obj, get_opcode(mnemonic));
 				if(strcmp(operand, "-") != 0) {
 					// check operand in symtab
 						// if symtab has entry with value, substitute here
