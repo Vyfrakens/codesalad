@@ -28,9 +28,7 @@ void one_pass() {
 		fscanf(f, "%s%s", mnemonic, operand);
 		if(feof(f)) break;
 		if(strcmp(mnemonic, "START") == 0) {
-			// TODO: Fishy Code Please Correct :D
-			// basically perform conversion of string to hex
-			//staddr = ;
+			staddr = strtodec(mnemonic);
 			locctr = staddr;
 		} else if(strcmp(label, "-") != 0) {
 			// symtab lookup
@@ -104,7 +102,6 @@ int get_opcode(char *ch) {
 }
 	
 int strtodec(char* str) {
-	//ken its your code 
 	char ch;
 	int res = 0, i, x, len;
 	for(len=0; str[len]!='\0'; ++len);
@@ -115,6 +112,7 @@ int strtodec(char* str) {
 	}
 	return res;
 }
+
 main() {
 	one_pass();
 }
