@@ -1,6 +1,5 @@
 #include "stdio.h"
 #include "stdlib.h"
-#include "math.h"
 char *getstring(FILE*, int);
 int strtohex(char*);
 int main() {
@@ -33,14 +32,8 @@ char *getstring(FILE *f, int len) {
 	str[len] = '\0';
 	return str;
 }
-int strtohex(char* str) {
-	char ch;
-	int res = 0, i, x, len;
-	for(len=0; str[len]!='\0'; ++len);
-	for(i=0; i<len; ++i) {
-		ch = str[i];
-		x = (ch>='0'&&ch<='9')?(ch-'0'):((ch>='A'&&ch<='F')?(ch-'A'+10):(ch-'a'+10));
-		res += x * pow(16, len-i-1);
-	}
-	return res;
+int strtohex(char* s) {
+	int hex;
+	sscanf(s, "%x", &hex);
+	return hex;
 }
