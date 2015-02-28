@@ -15,6 +15,6 @@ https://github.com/mikeizbicki/ucr-cs100/blob/2015winter/textbook/cheatsheets/gi
 
 https://github.com/mikeizbicki/ucr-cs100/tree/2015winter/textbook/tools/git/advanced-git
 
-**Make sure you look through [this link](https://github.com/Islandora/islandora/wiki/Git-Guidelines-and-Best-Practices) too for best practices**
+**Make sure you look through [this link](http://www.git-tower.com/learn/ebook/command-line/appendix/best-practices) too for best practices**
 
 *Some of the programs aren't compiling, so please try to find the issues.*
