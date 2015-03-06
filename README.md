@@ -1,4 +1,4 @@
-# codesalad
+# Code Salad
 
 	1. Fork this repo
 	2. Clone it to your computer
