@@ -7,6 +7,7 @@
 //
 
 //TODO : FOLLOW()
+//Also FIRST is incomplete :P
 
 #include <stdio.h>
 #include <string.h>
