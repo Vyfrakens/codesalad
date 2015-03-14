@@ -9,17 +9,36 @@
 //TODO : FOLLOW()
 
 #include <stdio.h>
-#include <string.h>
+#include <stdlib.h>
 #include <ctype.h>
 
 int m1, n, i, j = 2, z, flag = 0, old;
 char a[10][10], g[10];
 void first(char);
-void check(char);
+int check(char);
+
+int cmp(const void *a, const void *b)
+{
+    return ( *(char*)a - *(char*)b );
+}
+
+int unique(char *a, int len)
+{
+    int i, j;
+    qsort(a, len, sizeof(char), cmp);
+    for (i = j = 0; i < len; i++) {
+        if (a[i] != a[j]) {
+            a[++j] = a[i];
+        }
+    }
+    return j + 1;
+}
+
 
 int main()
 {
     char ch;
+    int i, len;
     printf("-----------------------------\n");
     printf("\t\tFIRST\n");
     printf("-----------------------------\n");
@@ -37,8 +56,11 @@ int main()
         flag = 0;
         printf("%7s\t\t",a[z]);
         first(a[z][0]);
-        for (j = 0; j < m1; j++) {
-            printf("%c ", g[j]);
+        len = unique(g, m1);
+        for (j = 0; j < len; j++) {
+            if (g[j] != '!') {
+                printf("%c ", g[j]);
+            }
         }
         printf(" \n");
     }
