@@ -86,7 +86,7 @@ void first(char c)
                 first(a[k][2]);
                 for (j = 2; a[k][j+1] != '\0';) {
                     j++;
-                    if(check('$') && g[0] != '$') {
+                    if(check('$')) {
                         first(a[k][j]);
                     }
                 }
