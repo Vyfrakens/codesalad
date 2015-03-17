@@ -22,7 +22,7 @@ int main() {
 	stack *f;
 	printf("Enter the no. of productions: ");
 	scanf("%d",&n);
-	p = malloc(n);
+	p = (production*) malloc(n * sizeof(production));
 	printf("Enter the productions (epsilon = #):\n");
 	for(i=0; i<n; ++i)
 		p[i] = getproduction();
