@@ -55,8 +55,8 @@ void clean_stack(stack *s) {
 			i->next = i->next->next;
 }
 
-void print_stack(stack *s, char *delim) {
+void print_stack(stack *s, char *delimiter) {
 	stack *ptr;
 	for(ptr = s; ptr; ptr = ptr->next)
-		printf("%c%s", ptr->data, ptr->next ? delim : "");
+		printf("%c%s", ptr->data, ptr->next ? delimiter : "");
 }

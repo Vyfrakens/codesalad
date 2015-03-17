@@ -72,14 +72,9 @@ stack *first(char c) {
 	else if(isterminal(c))
 		push(&f, c);
 
-	for(i=0; i<n; ++i) {
-		if(p[i].lhs == c) {
-			if(isterminal(p[i].lhs))	// Terminal or epsilon
-				push(&f, p[i].lhs);
-			else						// Non terminal
-				push_stack(&f, first_of_rhs(p[i].rhs));
-		}
-	}
+	for(i=0; i<n; ++i)
+		if(p[i].lhs == c)
+			push_stack(&f, first_of_rhs(p[i].rhs));
 	// printf("\n");
 	return f;
 }
@@ -87,7 +82,7 @@ stack *first(char c) {
 stack *first_of_rhs(char *s) {
 	stack *f = NULL;
 	push_stack(&f, first(*s));
-	if(f->data == '#' && *(s + 1) != '\0') {
+	if(f->data == '#' && *s != '\0' && *(s + 1) != '\0') {
 		pop(&f);	// Remove epsilon
 		push_stack(&f, first_of_rhs(s + 1));
 	}
@@ -98,7 +93,7 @@ stack *follow(char c) {
 	int i, j;
 	stack *f = NULL;
 	// printf("-> follow(%c) \n", c);
-	if(p[0].lhs == c) 
+	if(p[0].lhs == c)
 		push(&f, '$');
 	for(i=0; i<n; ++i) {
 		for(j=0; p[i].rhs[j] != '\0'; ++j) {
