@@ -38,24 +38,21 @@ void reverse_stack(stack **s) {
 	}
 }
 
-void remove_duplicates(stack *start) {
-	stack *ptr1, *ptr2, *dup;
-	ptr1 = start;
-
-	while(ptr1 != NULL && ptr1->next != NULL) {
-		ptr2 = ptr1;
-		while(ptr2->next != NULL) {
-			if(ptr1->data == ptr2->next->data) {
-				dup = ptr2->next;
-				ptr2->next = ptr2->next->next;
-				free(dup);
+void clean_stack(stack *s) {
+	stack *i, *j;
+	char temp;
+	// Sorting
+	for(i = s; i; i = i->next)
+		for(j = i->next; j; j = j->next)
+			if(i->data > j->data){
+				temp = i->data;
+				i->data = j->data;
+				j->data = temp;
 			}
-			else {
-				ptr2 = ptr2->next;
-			}
-		}
-		ptr1 = ptr1->next;
-	}
+	// Remove duplicates
+	for(i = s; i; i = i->next) 
+		while(i->next && i->data == i->next->data)
+			i->next = i->next->next;
 }
 
 void print_stack(stack *s, char *delim) {

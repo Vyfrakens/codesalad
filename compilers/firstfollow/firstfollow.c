@@ -14,6 +14,7 @@ production *p;
 production getproduction();
 int isterminal(char);
 stack *first(char);
+stack *first_of_rhs(char*);
 stack *follow(char);
 
 int main() {
@@ -33,7 +34,7 @@ int main() {
 
 	for(i=0; i<n; ++i) {
 		f = first(p[i].lhs);
-		remove_duplicates(f);
+		clean_stack(f);
 		printf("FIRST(%c) = {", p[i].lhs);
 		print_stack(f, ", ");
 		printf("}\n");
@@ -45,7 +46,7 @@ int main() {
 
 	for(i=0; i<n; ++i) {
 		f = follow(p[i].lhs);
-		remove_duplicates(f);
+		clean_stack(f);
 		printf("FOLLOW(%c) = {", p[i].lhs);
 		print_stack(f, ", ");
 		printf("}\n");
@@ -63,57 +64,50 @@ production getproduction() {
 }
 
 stack *first(char c) {
-	int i, j;
+	int i;
 	stack *f = NULL;
-	// printf("first(%c) -> ", c);
-	if(isterminal(c))
+	// printf("first(%c) = \n", c);
+	if(c == '\0')
+		push(&f, '#');
+	else if(isterminal(c))
 		push(&f, c);
 
 	for(i=0; i<n; ++i) {
-		j = 0;
 		if(p[i].lhs == c) {
-			if(isterminal(p[i].rhs[0]))	// Terminal or epsilon
-				push(&f, p[i].rhs[0]);
-			else {	// Non terminal
-				// printf("first(%c)\n", p[i].rhs[0]);
-				push_stack(&f, first(p[i].rhs[0]));
-				for(j=1; p[i].rhs[j] != '\0' && f->data == '#'; ++j) {
-					pop(&f);	// Remove epsilon
-					push_stack(&f, first(p[i].rhs[j]));
-				}
-			}
+			if(isterminal(p[i].lhs))	// Terminal or epsilon
+				push(&f, p[i].lhs);
+			else						// Non terminal
+				push_stack(&f, first_of_rhs(p[i].rhs));
 		}
 	}
 	// printf("\n");
 	return f;
 }
 
-stack *follow(char c) {
-	int i, j, k;
+stack *first_of_rhs(char *s) {
 	stack *f = NULL;
-	// printf("follow(%c) -> ", c);
+	push_stack(&f, first(*s));
+	if(f->data == '#' && *(s + 1) != '\0') {
+		pop(&f);	// Remove epsilon
+		push_stack(&f, first_of_rhs(s + 1));
+	}
+	return f;
+}
+
+stack *follow(char c) {
+	int i, j;
+	stack *f = NULL;
+	// printf("-> follow(%c) \n", c);
 	if(p[0].lhs == c) 
 		push(&f, '$');
 	for(i=0; i<n; ++i) {
 		for(j=0; p[i].rhs[j] != '\0'; ++j) {
-			if(p[i].rhs[j] == c && p[i].lhs != c) {
-				if(p[i].rhs[j+1] == '\0') {
-					// printf("follow(%c)\n", p[i].lhs);
-					push_stack(&f, follow(p[i].lhs));
-				}
-				else {
-					// printf("first(%c)\n", p[i].rhs[j+1]);
-					push_stack(&f, first(p[i].rhs[j+1]));
-					for(k=j+2; p[i].rhs[k] != '\0' && f->data == '#'; ++k) {
-						pop(&f);	// Remove epsilon
-						// printf("first(%c)\n", p[i].rhs[k]);
-						push_stack(&f, first(p[i].rhs[k]));
-					}
-					if(f->data == '#') {
-						pop(&f);
-						// printf("follow(%c)\n", p[i].lhs);
+			if(p[i].rhs[j] == c) {
+				push_stack(&f, first_of_rhs(p[i].rhs + j + 1));
+				if(f->data == '#') {
+					pop(&f);
+					if(c != p[i].lhs)
 						push_stack(&f, follow(p[i].lhs));
-					}
 				}
 			}
 		}
