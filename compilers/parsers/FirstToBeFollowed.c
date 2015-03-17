@@ -10,12 +10,15 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <ctype.h>
 
-int m1, n, i, j = 2, z, flag = 0, old;
-char a[10][10], g[10];
+int m, m1, n, z;
+char a[10][10], g[100];
+
 void first(char);
 int check(char);
+
 
 int cmp(const void *a, const void *b)
 {
@@ -38,23 +41,22 @@ int unique(char *a, int len)
 int main()
 {
     char ch;
-    int i, len;
-    printf("-----------------------------\n");
-    printf("\t\tFIRST\n");
-    printf("-----------------------------\n");
+    int i, len, j;
+    printf("--------------------------------------------------------\n");
+    printf("\t\tFIRST AND FOLLOW\n");
+    printf("--------------------------------------------------------\n");
     printf("Enter the number of productions : ");
     scanf("%d",&n);
     printf("Enter the productions : \n");
     for (i = 0; i < n; i++) {
         scanf("%s%c", a[i], &ch);
     }
-    printf("----------------------------");
-    printf("\nPRODUCTIONS\tFIRST\n");
-    printf("----------------------------\n");
+    printf("------------------------------------------------");
+    printf("\nPRODUCTIONS\t\tFIRST\n");
+    printf("----------------------------------------------\n");
     for (z = 0; z < n; z++) {
         m1 = 0;
-        flag = 0;
-        printf("%7s\t\t",a[z]);
+        printf("%11s\t\t",a[z]);
         first(a[z][0]);
         len = unique(g, m1);
         for (j = 0; j < len; j++) {
@@ -63,15 +65,15 @@ int main()
             }
         }
         printf(" \n");
+        memset(&g[0], 0, sizeof(g));
     }
-    printf("----------------------------\n");
+    printf("---------------------------------------------\n");
 }
-
 
 
 void first(char c)
 {
-    int k;
+    int k, j;
     if (!isupper(c)) {
         g[m1++] = c;
     }
@@ -106,8 +108,3 @@ int check(char ch)
     }
     return 0;
 }
-
-
-
-
-
