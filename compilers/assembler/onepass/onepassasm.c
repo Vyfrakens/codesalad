@@ -112,7 +112,7 @@ int main(int argc, const char * argv[]) {
 	}
 	create_record(text_record, &rstart);
 
-	sprintf(object_code[rec++], "E %06X", LOCCTR);
+	sprintf(object_code[rec++], "E %06X", search_symtab(inst->operand)->value);
 	update_object_code_length(LOCCTR - start);
 	print_object_code();
 	fclose(f);
