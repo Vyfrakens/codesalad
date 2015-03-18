@@ -6,16 +6,15 @@
 //  Copyright (c) 2015 Vyfrankens. All rights reserved.
 //
 
-//TODO : FOLLOW()
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
 
-int m, m1, n, z;
-char a[10][10], g[100];
-
+int m, m1, n, z, i, j, flag = 0;
+char a[10][10], f[1500], g[150];
+void follow(char);
+void firstof(char);
 void first(char);
 int check(char);
 
@@ -52,10 +51,12 @@ int main()
         scanf("%s%c", a[i], &ch);
     }
     printf("------------------------------------------------");
-    printf("\nPRODUCTIONS\t\tFIRST\n");
+    printf("\nPRODUCTIONS\t\tFIRST\t\tFOLLOW\n");
     printf("----------------------------------------------\n");
     for (z = 0; z < n; z++) {
+        m = 0;
         m1 = 0;
+        flag = 0;
         printf("%11s\t\t",a[z]);
         first(a[z][0]);
         len = unique(g, m1);
@@ -64,10 +65,64 @@ int main()
                 printf("%c ", g[j]);
             }
         }
+        printf("\t\t");
+        follow(a[z][0]);
+        len = unique(f, m);
+        for (j = 0; j < len; j++) {
+            printf("%c ", f[j]);
+        }
         printf(" \n");
+        memset(&f[0], 0, sizeof(f));
         memset(&g[0], 0, sizeof(g));
     }
     printf("---------------------------------------------\n");
+}
+
+void follow(char c)
+{
+    int i,j;
+    if (a[0][0] == c) {
+        f[m++] = '$';
+    }
+    
+    for (i = 0; i < n; i++) {
+        for (j = 2; a[i][j] != '\0'; j++) {
+            if (a[i][j] == c) {
+                if (a[i][j+1] != '\0') {
+                    firstof(a[i][++j]);
+                    if (flag) {
+                        if (a[i][j+1] != '\0')
+                            firstof(a[i][++j]);
+                        if (a[i][j+1] == '\0')
+                            follow(a[i][0]);
+                    }
+                }
+                else if (a[i][j+1] == '\0' && c != a[i][0]) {
+                    follow(a[i][0]);
+                }
+            }
+        }
+    }
+}
+
+void firstof(char c)
+{
+    int k;
+    if (!isupper(c)) {
+        f[m++] = c;
+    }
+    
+    for (k = 0; k < n; k++) {
+        if (a[k][0] == c) {
+            if (a[k][2] == '$') {
+                flag = 1;
+            } else if (islower(a[k][2])) {
+                f[m++] = a[k][2];
+            } else {
+                firstof(a[k][2]);
+            }
+        }
+    }
 }
 
 
@@ -108,3 +163,4 @@ int check(char ch)
     }
     return 0;
 }
+
