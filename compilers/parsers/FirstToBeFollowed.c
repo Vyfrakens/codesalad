@@ -1,10 +1,7 @@
-//
-//  FirstToBeFollowed.c
 //  MyLaboratory
-//
+//  FirstAndFollow.c
 //  Created by Francis Johny on 14/03/15.
 //  Copyright (c) 2015 Vyfrankens. All rights reserved.
-//
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -12,7 +9,7 @@
 #include <ctype.h>
 
 int m, m1, n, z, i, j, flag = 0;
-char a[10][10], f[1500], g[150];
+char a[10][10], f[150], g[150];
 void follow(char);
 void firstof(char);
 void first(char);
@@ -83,6 +80,7 @@ void follow(char c)
     int i,j;
     if (a[0][0] == c) {
         f[m++] = '$';
+        flag = 0;
     }
     
     for (i = 0; i < n; i++) {
@@ -93,7 +91,7 @@ void follow(char c)
                     if (flag) {
                         if (a[i][j+1] != '\0')
                             firstof(a[i][++j]);
-                        if (a[i][j+1] == '\0')
+                        if (a[i][j+1] == '\0' && c != a[i][0])
                             follow(a[i][0]);
                     }
                 }
