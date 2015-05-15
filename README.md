@@ -1,5 +1,7 @@
 # Code Salad
 
+[![Join the chat at https://gitter.im/Vyfrakens/codesalad](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/Vyfrakens/codesalad?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 	1. Fork this repo
 	2. Clone it to your computer
 	3. Make an edit or create a new post
