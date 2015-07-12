@@ -30,10 +30,15 @@ int main()
                 while(fscanf(symtab, "%X%s", &locctr, symlabel) > 0)
                 {
                     if(strcmp(field3, symlabel) == 0)
+                    {
                         printf("%02X%04X^", opcode, locctr);
+                        break;
+                    }
                     else if(strcmp(field3, "-") == 0)
+                    {
                         printf("%02X0000^", opcode);
-                    break;
+                        break;
+                    }
                 }
                 fclose(symtab);
                 break;

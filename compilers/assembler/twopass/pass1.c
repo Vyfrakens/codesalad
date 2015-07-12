@@ -30,8 +30,8 @@ int main(int argc, char const *argv[])
     
     
     
-    fscanf(inputFile, "%s%s", field1, field2);
-    while(!feof(inputFile))
+    
+    while(fscanf(inputFile, "%s%s", field1, field2) > 0)
     {
         fscanf(inputFile, "%s", op);
         fprintf(outputFile, "\n%X\t%s\t%s\t%s\n", locctr, field1, field2, op);
@@ -41,18 +41,15 @@ int main(int argc, char const *argv[])
             fprintf(symtab, "\n%X\t%s\n", locctr, field1);
         
         optab = fopen("optab.txt", "r");
-        fscanf(optab, "%s%X", operation, &opcode);
-        while(!feof(optab))
+
+        while(fscanf(optab,"%s%X", operation, &opcode) > 0)
         {
             if(strcmp(field2, operation) == 0)
             {
                 locctr = locctr + 3;
                 break;
             }
-            fscanf(optab,"%s%X", operation, &opcode);
         }
-        if(strcmp(field2, operation) == 0 && feof(optab))
-            locctr = locctr + 3;
         fclose(optab);
         
         
@@ -77,7 +74,6 @@ int main(int argc, char const *argv[])
             field3 = atoi(op);
             locctr = locctr + field3;
         }
-        fscanf(inputFile,"%s%s",field1,field2);
     }
     
     
